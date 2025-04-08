@@ -240,40 +240,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Filter skills to include only selected ones
         customResume.skills = customResume.skills.filter(skill => selectedSkills.includes(skill));
-        
+
         // Filter experience
         if (customResume.experience) {
             customResume.experience = customResume.experience.map(job => {
-                // Keep the job, but filter accomplishments
-                const filteredJob = {...job};
-                
+                const filteredJob = { ...job };
+
                 if (filteredJob.accomplishments) {
                     filteredJob.accomplishments = filteredJob.accomplishments.filter(acc => {
                         if (!acc.tags) return true;
-                        
-                        // Keep accomplishments that match selected skills
                         return acc.tags.some(tag => selectedSkills.includes(tag));
                     });
                 }
-                
+
                 return filteredJob;
             }).filter(job => job.accomplishments && job.accomplishments.length > 0);
         }
-        
+
         // Filter projects to match selected skills
         if (customResume.projects) {
             customResume.projects = customResume.projects.filter(project => {
                 if (!project.technologies && !project.tags) return true;
-                
-                // Check if any technology matches selected skills
-                const techMatch = project.technologies ? 
-                    project.technologies.some(tech => selectedSkills.includes(tech)) : false;
-                
-                // Check if any tag matches selected skills
-                const tagMatch = project.tags ?
-                    project.tags.some(tag => selectedSkills.includes(tag)) : false;
-                
+
+                const techMatch = project.technologies
+                    ? project.technologies.some(tech => selectedSkills.includes(tech))
+                    : false;
+
+                const tagMatch = project.tags
+                    ? project.tags.some(tag => selectedSkills.includes(tag))
+                    : false;
+
                 return techMatch || tagMatch;
+            });
+        }
+
+        // Filter certifications to match selected skills
+        if (customResume.certifications) {
+            customResume.certifications = customResume.certifications.filter(cert => {
+                if (!cert.tags) return true;
+
+                // Check if any tag matches the selected skills
+                return cert.tags.some(tag => selectedSkills.includes(tag));
             });
         }
 
@@ -291,22 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h1>${resumeData.personalInfo?.name || 'Your Name'}</h1>
                     <div class="contact-info">
                         <p>${resumeData.personalInfo?.email || 'email@example.com'} | ${resumeData.personalInfo?.phone || '(123) 456-7890'}</p>
-                        <p>${resumeData.personalInfo?.location || 'City, State'}</p>
                         ${resumeData.personalInfo?.linkedin ? `<p><a href="${resumeData.personalInfo.linkedin}" target="_blank">LinkedIn</a></p>` : ''}
                         ${resumeData.personalInfo?.github ? `<p><a href="${resumeData.personalInfo.github}" target="_blank">GitHub</a></p>` : ''}
                     </div>
                 </header>
         `;
 
-        // Summary section
-        if (resumeData.summary) {
-            html += `
-                <section class="resume-summary">
-                    <h2>Summary</h2>
-                    <p>${highlightKeywords(resumeData.summary, selectedSkills)}</p>
-                </section>
-            `;
-        }
+        
 
         // Skills section
         if (resumeData.skills && resumeData.skills.length > 0) {
@@ -330,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <section class="resume-experience">
                     <h2>Experience</h2>
             `;
-            
+
             resumeData.experience.forEach(job => {
                 html += `
                     <div class="job">
@@ -340,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p class="date">${job.startDate} - ${job.endDate}</p>
                         </div>
                 `;
-                
+
                 if (job.accomplishments && job.accomplishments.length > 0) {
                     html += '<ul>';
                     job.accomplishments.forEach(acc => {
@@ -349,65 +347,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     html += '</ul>';
                 }
-                
+
                 if (job.technologies && job.technologies.length > 0) {
                     html += `<p><strong>Technologies:</strong> ${job.technologies.join(', ')}</p>`;
                 }
-                
-                html += '</div>';
-            });
-            
-            html += '</section>';
-        }
 
-        // Education section
-        if (resumeData.education && resumeData.education.length > 0) {
-            html += `
-                <section class="resume-education">
-                    <h2>Education</h2>
-            `;
-            
-            resumeData.education.forEach(edu => {
-                html += `
-                    <div class="education-item">
-                        <h3>${edu.degree}</h3>
-                        <p>${edu.institution}, ${edu.location}</p>
-                        <p>${edu.startDate ? edu.startDate + ' - ' : ''}${edu.graduationDate}</p>
-                        ${edu.inProgress ? '<p><em>In Progress</em></p>' : ''}
-                `;
-                
-                if (edu.courses && edu.courses.length > 0) {
-                    html += `<p><strong>Relevant Courses:</strong> ${edu.courses.join(', ')}</p>`;
-                }
-                
                 html += '</div>';
             });
-            
-            html += '</section>';
-        }
 
-        // Projects section
-        if (resumeData.projects && resumeData.projects.length > 0) {
-            html += `
-                <section class="resume-projects">
-                    <h2>Projects</h2>
-            `;
-            
-            resumeData.projects.forEach(project => {
-                html += `
-                    <div class="project">
-                        <h3>${project.name}</h3>
-                        ${project.url ? `<p><a href="${project.url}" target="_blank">${project.url}</a></p>` : ''}
-                        <p>${highlightKeywords(project.description, selectedSkills)}</p>
-                `;
-                
-                if (project.technologies && project.technologies.length > 0) {
-                    html += `<p><strong>Technologies:</strong> ${project.technologies.join(', ')}</p>`;
-                }
-                
-                html += '</div>';
-            });
-            
             html += '</section>';
         }
 
@@ -418,16 +365,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>Certifications</h2>
                     <ul>
             `;
-            
+
             resumeData.certifications.forEach(cert => {
                 html += `
                     <li>
                         <strong>${cert.name}</strong> - ${cert.issuer} (${cert.date})
-                        ${cert.description ? `<p>${cert.description}</p>` : ''}
+                        ${cert.description ? `<p>${highlightKeywords(cert.description, selectedSkills)}</p>` : ''}
                     </li>
                 `;
             });
-            
+
             html += `
                     </ul>
                 </section>
@@ -443,15 +390,15 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function highlightKeywords(text, keywords) {
         if (!text || !keywords || keywords.length === 0) return text;
-        
+
         let highlightedText = text;
         keywords.forEach(keyword => {
             if (!keyword) return;
-            
+
             const regex = new RegExp('\\b' + keyword + '\\b', 'gi');
             highlightedText = highlightedText.replace(regex, match => `<span class="highlight">${match}</span>`);
         });
-        
+
         return highlightedText;
     }
 
