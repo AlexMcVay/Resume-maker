@@ -1,0 +1,533 @@
+{
+    "personalInfo": {
+      "name": "Alexandra McVay",
+      "email": "alya.mcvay@gmail.com",
+      "phone": "(484) 588-9194",
+      "location": "Phoenix, Arizona, United States",
+      "linkedin": "https://www.linkedin.com/in/alexandra-mcvay",
+      "github": "https://github.com/AlexMcVay"
+    },
+    "summary": "Dedicated and results-driven professional with diverse experience in software development, inventory management, financial analysis, and technical tutoring. Proven ability to lead teams, optimize systems, and enhance operational efficiency across various roles. Skilled in SQL, VBA, JavaScript, HTML/CSS, and Microsoft Office Suite, with a track record of creating impactful solutions and fostering a culture of continuous improvement.",
+    
+    "skills": [
+      "JavaScript", 
+      "HTML5", 
+      "CSS3", 
+      "SQL", 
+      "VBA", 
+      "NIST Risk Management Framework (RMF)", 
+      "Microsoft Office Suite", 
+      "UI/UX Design", 
+      "Project Management", 
+      "Database Management", 
+      "Inventory Management",
+      "Web Development",
+      "Financial Analysis",
+      "Technical Tutoring",
+      "Team Leadership",
+      "Problem Solving",
+      "Dart",
+      "C/C++",
+      "API Integration",
+      "Agile Methodology",
+      "game design", "education", "leadership", "training", "user testing", "data analysis", "feedback", "coding", "optimization", "software development", "performance", "research", "analysis", "military", "history", "innovation", "recognition", "simulation", "collaboration", "instructional design", "assessment", "progress tracking", "success", "mentoring", "confidence building", "one-on-one teaching", "programming", "algorithms", "data structures", "problem-solving", "projects", "code review", "debugging", "technical support", "SQL", "VBA", "Microsoft Macros", "inventory management", "database", "financial analysis", "reporting", "calculations", "data entry", "financial data", "spreadsheets", "presentations", "financial reporting", "communication", "executive reporting", "process improvement", "efficiency", "cost reduction", "optimization", "interdepartmental collaboration", "procurement", "fiscal responsibility", "market research", "industry trends", "market awareness", "competitive analysis", "product analysis", "record keeping", "purchase tracking", "database management", "ad hoc analysis", "decision support", "project management", "inventory forecasting", "resource optimization", "accuracy improvement", "error reduction", "operational efficiency", "protocol development", "training development", "knowledge transfer", "system implementation", "team building", "continuous improvement", "data extraction", "inventory tracking", "healthcare standards", "data auditing", "compliance", "process verification", "quality assurance", "design", "safety enhancement", "military equipment", "aircraft maintenance", "operational readiness", "technical expertise", "multiple platforms", "mission support", "fund administration", "travel coordination", "safety programs", "efficiency improvement", "protocol redesign", "safety improvement", "incident reduction", "Microsoft Office", "data management", "technical skills", "aircraft systems", "F-35", "ejection systems", "mechanical skills", "hazardous materials", "protocol implementation", "regulatory compliance", "documentation", "customer service", "food preparation", "quality control", "customer engagement", "sales", "service excellence", "cash handling", "financial accuracy", "transaction processing", "organization", "cleanliness", "workplace standards", "emergency services", "management", "operations", "instruction", "customer satisfaction", "staff management", "supervision", "first aid", "emergency preparedness", "safety training", "multiple disciplines", "curriculum development", "educational planning", "equipment tracking", "resource management", "program execution", "event planning", "cross-functional support", "mathematics", "tutoring", "high school", "personalized learning", "student support", "custom approaches", "performance improvement", "student success", "academic support", "administrative support", "property management", "tenant relations", "HTML5", "CSS3", "JavaScript", "Web Development", "UI/UX Design", "responsive design", "scripting", "markdown", "mobile", "React", "API Integration", "C/C++", "Dart", "Database", "mermaid", "encryption algorithms"
+    ],
+    "experience": [
+      {
+        "title": "VTEC Intern",
+        "company": "Naval Surface Warfare Center (NSWC)",
+        "location": "Philadelphia, Pennsylvania, United States",
+        "startDate": "2023",
+        "endDate": "Present",
+        "accomplishments": [
+          {
+            "text": "Facilitated and conducted highly engaging humanitarian warfare games promoting awareness of complex global issues related to conflict and peacekeeping efforts",
+            "tags": ["game design", "education", "leadership", "training"]
+          },
+          {
+            "text": "Conducted extensive playtesting and user feedback analysis to iterate and improve game mechanics",
+            "tags": ["user testing", "game design", "data analysis", "feedback"]
+          },
+          {
+            "text": "Optimized code and assets to ensure smooth performance on various gaming platforms",
+            "tags": ["coding", "optimization", "software development", "performance"]
+          },
+          {
+            "text": "Conducted thorough research on historical battles, military strategies, and contemporary warfare tactics to inform game design",
+            "tags": ["research", "analysis", "military", "history"]
+          },
+          {
+            "text": "Received accolades for creating innovative war game experiences that were praised for their realism and effectiveness in training exercises",
+            "tags": ["innovation", "recognition", "training", "simulation"]
+          },
+          {
+            "text": "Collaborated with military experts to incorporate realistic simulation elements into war games for maximum educational value",
+            "tags": ["collaboration", "military", "simulation", "education"]
+          }
+        ],
+        "technologies": ["Game Design", "Simulation", "Research", "User Testing"]
+      },
+      {
+        "title": "Private Tutor",
+        "company": "Know it All Tutors",
+        "location": "Remote",
+        "startDate": "2023",
+        "endDate": "2023",
+        "accomplishments": [
+          {
+            "text": "Implemented engaging teaching methods and instructional strategies to enhance students' comprehension and retention of computer science material",
+            "tags": ["teaching", "education", "computer science", "instructional design"]
+          },
+          {
+            "text": "Monitored and tracked students' progress through regular assessments and feedback to identify areas for improvement",
+            "tags": ["assessment", "feedback", "progress tracking", "education"]
+          },
+          {
+            "text": "Demonstrated a proven track record of helping students achieve academic success and improve their confidence in computer science",
+            "tags": ["success", "mentoring", "education", "confidence building"]
+          },
+          {
+            "text": "Facilitated one-on-one tutoring sessions focusing on programming languages, algorithms, and data structures",
+            "tags": ["one-on-one teaching", "programming", "algorithms", "data structures"]
+          },
+          {
+            "text": "Assisted students in completing homework assignments, projects, and coding exercises, providing guidance to enhance problem-solving skills",
+            "tags": ["problem-solving", "coding", "projects", "mentoring"]
+          },
+          {
+            "text": "Conducted code reviews and debugging sessions to help students identify and correct errors in their programs",
+            "tags": ["code review", "debugging", "programming", "technical support"]
+          }
+        ],
+        "technologies": ["Programming Languages", "Algorithms", "Data Structures", "Debugging"]
+      },
+      {
+        "title": "Temporary Financial Assistant",
+        "company": "City of Fort Walton Beach",
+        "location": "Fort Walton Beach, Florida, United States",
+        "startDate": "2020",
+        "endDate": "2020",
+        "accomplishments": [
+          {
+            "text": "Created a Warehouse inventory system using SQL, VBA, and Advanced Microsoft Macros to determine usability of inventory, needs for new inventory, and purge inventory",
+            "tags": ["SQL", "VBA", "Microsoft Macros", "inventory management", "database"]
+          },
+          {
+            "text": "Performed routine calculations to produce financial analyses and reports as needed",
+            "tags": ["financial analysis", "reporting", "calculations", "data analysis"]
+          },
+          {
+            "text": "Collected and entered data for various financial spreadsheets using various coding languages",
+            "tags": ["data entry", "coding", "financial data", "spreadsheets"]
+          },
+          {
+            "text": "Attended and presented at finance department and company-wide meetings, assisting with financial reporting to managers and senior executives",
+            "tags": ["presentations", "financial reporting", "communication", "executive reporting"]
+          },
+          {
+            "text": "Suggested changes and improvements to increase accuracy, efficiency, and cost reductions",
+            "tags": ["process improvement", "efficiency", "cost reduction", "optimization"]
+          },
+          {
+            "text": "Worked closely with relevant departments to ensure products purchased were in the taxpayers' best interest",
+            "tags": ["interdepartmental collaboration", "procurement", "fiscal responsibility"]
+          },
+          {
+            "text": "Maintained current awareness of industry market trends",
+            "tags": ["market research", "industry trends", "market awareness"]
+          },
+          {
+            "text": "Conducted competitor analysis to identify popular products",
+            "tags": ["competitive analysis", "market research", "product analysis"]
+          },
+          {
+            "text": "Kept accurate records of purchases made using various programming languages",
+            "tags": ["record keeping", "programming", "purchase tracking", "database management"]
+          },
+          {
+            "text": "Engaged in ad hoc projects to support financial analysis and decision-making processes",
+            "tags": ["ad hoc analysis", "decision support", "financial analysis", "project management"]
+          }
+        ],
+        "technologies": ["SQL", "VBA", "Microsoft Office", "Financial Analysis", "Database Management"]
+      },
+      {
+        "title": "Inventory Accounting Manager",
+        "company": "United States Air Force",
+        "location": "Eglin Air Force Base, Florida, United States",
+        "startDate": "2018",
+        "endDate": "2020",
+        "accomplishments": [
+          {
+            "text": "Developed and implemented an innovative inventory system, now utilized internationally, which improved inventory tracking accuracy by 30%",
+            "tags": ["inventory management", "innovation", "international impact", "accuracy improvement"]
+          },
+          {
+            "text": "Spearheaded the creation of a new inventory protocol that reduced system errors by 25%, significantly enhancing operational efficiency",
+            "tags": ["process improvement", "error reduction", "operational efficiency", "protocol development"]
+          },
+          {
+            "text": "Analyzed and forecasted inventory requirements for the egress mechanic shop to ensure optimal stock levels while reducing excess expenditures",
+            "tags": ["inventory forecasting", "cost reduction", "analysis", "resource optimization"]
+          },
+          {
+            "text": "Designed and executed training programs for the new PEB System, fostering a knowledgeable and skilled team",
+            "tags": ["training development", "knowledge transfer", "system implementation", "team building"]
+          },
+          {
+            "text": "Supported and trained subordinates in inventory management programs, promoting a culture of continuous learning and improvement",
+            "tags": ["mentoring", "training", "continuous improvement", "team development"]
+          },
+          {
+            "text": "Oversaw the tracking of all incoming and expended PEB items, utilizing SQL queries to extract data and generate insightful reports for decision-making",
+            "tags": ["SQL", "reporting", "data extraction", "inventory tracking"]
+          },
+          {
+            "text": "Developed SQL queries to enhance inventory data analysis, aligning with healthcare data management standards",
+            "tags": ["SQL", "data analysis", "healthcare standards", "database management"]
+          },
+          {
+            "text": "Conducted comprehensive data audits to ensure compliance across all inventory processes",
+            "tags": ["data auditing", "compliance", "process verification", "quality assurance"]
+          },
+          {
+            "text": "Collaborated in the update and design of F-35 ejection systems, enhancing the safety and reliability of critical military equipment",
+            "tags": ["collaboration", "design", "safety enhancement", "military equipment"]
+          },
+          {
+            "text": "Served as an explosive and electric mechanic for various aircraft, including F-35, F-16, F-15, and F-22, ensuring operational readiness and performance",
+            "tags": ["aircraft maintenance", "operational readiness", "technical expertise", "multiple platforms"]
+          },
+          {
+            "text": "Supported mission-critical operations and adeptly managed funds for airmen during travel, demonstrating strong financial stewardship",
+            "tags": ["financial management", "mission support", "fund administration", "travel coordination"]
+          },
+          {
+            "text": "Developed and led a team of 5 airmen in safety program initiatives, achieving a 20% improvement in efficiency by redesigning hazardous waste protocols",
+            "tags": ["leadership", "safety programs", "efficiency improvement", "protocol redesign"]
+          },
+          {
+            "text": "Spearheaded a safety program overhaul that resulted in a 15% reduction in incidents and earned a commendation for excellence",
+            "tags": ["program management", "safety improvement", "incident reduction", "recognition"]
+          },
+          {
+            "text": "Demonstrated proficiency in Microsoft Office Suite and leveraged SQL for data management and queries",
+            "tags": ["Microsoft Office", "SQL", "data management", "technical skills"]
+          }
+        ],
+        "technologies": ["SQL", "Microsoft Office", "Inventory Management", "Data Analysis", "Training Development"]
+      },
+      {
+        "title": "Egress Technician",
+        "company": "United States Air Force",
+        "location": "United States",
+        "startDate": "2016",
+        "endDate": "2020",
+        "accomplishments": [
+          {
+            "text": "Assisted in the update and design of F-35 ejection systems",
+            "tags": ["aircraft systems", "design", "F-35", "ejection systems"]
+          },
+          {
+            "text": "Served as explosive and electric mechanic for various aircraft including F-35, F-16, F-15, and F-22",
+            "tags": ["aircraft maintenance", "multiple platforms", "technical expertise", "mechanical skills"]
+          },
+          {
+            "text": "Traveled for missions and managed funds for airmen while traveling",
+            "tags": ["mission support", "financial management", "travel coordination", "team support"]
+          },
+          {
+            "text": "Managed Safety programs and Hazardous waste protocols",
+            "tags": ["safety management", "hazardous materials", "protocol implementation", "regulatory compliance"]
+          },
+          {
+            "text": "Demonstrated proficiency in Microsoft Office Suite for documentation and reporting",
+            "tags": ["Microsoft Office", "documentation", "reporting", "technical skills"]
+          }
+        ],
+        "technologies": ["Microsoft Office", "Aircraft Systems", "Safety Protocols", "Technical Maintenance"]
+      },
+      {
+        "title": "Sales Associate Cashier",
+        "company": "KFC",
+        "location": "Albany, OR",
+        "startDate": "2016",
+        "endDate": "2016",
+        "accomplishments": [
+          {
+            "text": "Served customers and prepared food while maintaining quality standards",
+            "tags": ["customer service", "food preparation", "quality control"]
+          },
+          {
+            "text": "Greeted customers promptly and provided assistance with menu selection",
+            "tags": ["customer engagement", "sales", "service excellence"]
+          },
+          {
+            "text": "Managed cash register operations and balanced tills with accuracy",
+            "tags": ["cash handling", "financial accuracy", "transaction processing"]
+          },
+          {
+            "text": "Maintained a clean and organized store environment",
+            "tags": ["organization", "cleanliness", "workplace standards"]
+          }
+        ],
+        "technologies": ["POS Systems", "Customer Service", "Cash Management"]
+      },
+      {
+        "title": "EMS Area Director",
+        "company": "Crater Lake Council",
+        "location": "Camp Makualla",
+        "startDate": "2016",
+        "endDate": "2016",
+        "accomplishments": [
+          {
+            "text": "Responsible for the operation of the Emergency Medical Services area in Camp Makualla",
+            "tags": ["emergency services", "leadership", "management", "operations"]
+          },
+          {
+            "text": "Achieved customer satisfaction through quality merit badge instruction and enthusiastic leadership",
+            "tags": ["instruction", "leadership", "customer satisfaction", "quality delivery"]
+          },
+          {
+            "text": "Supervised, trained and managed employees assigned to the EMS area",
+            "tags": ["staff management", "training", "supervision", "team leadership"]
+          },
+          {
+            "text": "Demonstrated expertise in multiple merit badges including First Aid, Emergency Preparedness, Search and Rescue, Fingerprinting, and Fire Safety",
+            "tags": ["first aid", "emergency preparedness", "safety training", "multiple disciplines"]
+          },
+          {
+            "text": "Assisted staff in developing high-quality lesson plans",
+            "tags": ["curriculum development", "mentoring", "quality assurance", "educational planning"]
+          },
+          {
+            "text": "Maintained inventory of all area equipment and merit badge tools",
+            "tags": ["inventory management", "equipment tracking", "resource management"]
+          },
+          {
+            "text": "Assisted in the execution of the camp's program plan, including camp-wide programs and activities",
+            "tags": ["program execution", "event planning", "cross-functional support"]
+          },
+          {
+            "text": "Provided leadership and guidance to EMS supervisors and field personnel",
+            "tags": ["leadership", "mentoring", "team development", "continuous improvement"]
+          }
+        ],
+        "technologies": ["Emergency Services", "Training Development", "Program Management", "Inventory Control"]
+      },
+      {
+        "title": "Sandwich Artist",
+        "company": "Subway",
+        "location": "Klamath Falls, OR",
+        "startDate": "2016",
+        "endDate": "2016",
+        "accomplishments": [
+          {
+            "text": "Prepared food items according to company standards and customer specifications",
+            "tags": ["food preparation", "quality control", "customer service"]
+          },
+          {
+            "text": "Maintained cleanliness and organization of the work area",
+            "tags": ["organization", "cleanliness", "workplace standards"]
+          },
+          {
+            "text": "Provided friendly and efficient customer service",
+            "tags": ["customer service", "efficiency", "communication"]
+          }
+        ],
+        "technologies": ["Food Service", "Customer Relations", "Quality Control"]
+      },
+      {
+        "title": "Tutor",
+        "company": "Oregon City Public Schools",
+        "location": "Klamath Union High School",
+        "startDate": "2014",
+        "endDate": "2015",
+        "accomplishments": [
+          {
+            "text": "Tutored students in grades 9-12 in Mathematics",
+            "tags": ["mathematics", "education", "tutoring", "high school"]
+          },
+          {
+            "text": "Developed personalized learning approaches based on individual student needs",
+            "tags": ["personalized learning", "student support", "education", "custom approaches"]
+          },
+          {
+            "text": "Helped improve student comprehension and performance in mathematics",
+            "tags": ["performance improvement", "mathematics", "student success", "academic support"]
+          }
+        ],
+        "technologies": ["Mathematics Education", "Tutoring", "Student Assessment"]
+      },
+      {
+        "title": "Assistant",
+        "company": "1st Choice Property Management",
+        "location": "Klamath Falls, Oregon, United States",
+        "startDate": "2013",
+        "endDate": "2014",
+        "accomplishments": [
+          {
+            "text": "Provided administrative support for property management operations",
+            "tags": ["administrative support", "property management", "operations"]
+          },
+          {
+            "text": "Maintained organized records and documentation",
+            "tags": ["record keeping", "organization", "documentation"]
+          },
+          {
+            "text": "Assisted with customer service and tenant relations",
+            "tags": ["customer service", "tenant relations", "communication"]
+          }
+        ],
+        "technologies": ["Administrative Support", "Customer Service", "Documentation"]
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor's degree in Computer and Information Sciences",
+        "institution": "Villanova University",
+        "location": "Villanova, PA",
+        "startDate": "2021",
+        "graduationDate": "2025",
+        "inProgress": true,
+        "courses": [
+          "Computer Science",
+          "Information Systems",
+          "Data Structures",
+          "Algorithm Design",
+          "Database Management"
+        ]
+      },
+      {
+        "degree": "Associate of Science (AS) in Avionics Maintenance Technology",
+        "institution": "Community College of the Air Force",
+        "location": "",
+        "startDate": "2016",
+        "graduationDate": "2020",
+        "inProgress": false,
+        "courses": [
+          "Avionics Systems",
+          "Aircraft Maintenance",
+          "Electronics",
+          "Technical Documentation"
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "name": "Task Calendar",
+        "url": "https://alexmcvay.icu/Calendar-app/",
+        "description": "A calendar application that automatically schedules tasks for users based on priority and available time slots.",
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Web Development", "UI/UX Design"],
+        "tags": ["design", "UI/UX", "css3", "html5", "JavaScript", "web"]
+      },
+      {
+        "name": "DragonFighter RPG",
+        "url": "https://alexmcvay.github.io/DragonFighter.github.io/",
+        "description": "A text-based monster fighting role-playing game with character progression and strategic combat.",
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Game Development", "Responsive Design"],
+        "tags": ["design", "css3", "html5", "javascript", "scripting", "web", "UI/UX", "markdown", "mobile"]
+      },
+      {
+        "name": "Portfolio Website",
+        "url": "https://alexmcvay.github.io/Portfolio/",
+        "description": "Personal portfolio website showcasing projects, experience, and skills.",
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+        "tags": ["design", "css3", "html5", "JavaScript", "scripting", "web", "UI/UX", "markdown", "mobile"]
+      },
+      {
+        "name": "Student Calendar",
+        "url": "https://studentcalendar.netlify.app/",
+        "description": "A calendar application designed specifically for students to manage classes, assignments, and deadlines.",
+        "technologies": ["React", "CSS3", "HTML5", "JavaScript"],
+        "tags": ["UI/UX", "design", "css3", "html5", "JavaScript", "web", "react"]
+      },
+      {
+        "name": "LinkTree Clone",
+        "url": "https://alexmcvay.github.io/Contact-Card/",
+        "description": "A custom LinkTree alternative with additional functionality for downloading contact information.",
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Mobile-First Design"],
+        "tags": ["UI/UX", "design", "css3", "html5", "JavaScript", "web", "mobile"]
+      },
+      {
+        "name": "UBER-Data Analysis",
+        "url": "https://github.com/AlexMcVay/UBER-Data",
+        "description": "A data analysis project modeling UBER's data structure and providing insights on ride patterns.",
+        "technologies": ["SQL", "Database Design", "Data Analysis", "Data Visualization"],
+        "tags": ["Database", "SQL", "mermaid"]
+      },
+      {
+        "name": "Tic Tac Toe",
+        "url": "https://alexandra-mcvay.netlify.app/",
+        "description": "A fully interactive Tic Tac Toe game with win detection and score tracking.",
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Game Logic"],
+        "tags": ["UI/UX", "design", "css3", "html5", "javascript", "web", "mobile"]
+      },
+      {
+        "name": "Overseas VA Schools",
+        "url": "http://alexmcvay.icu/Forgien-GI-schools.github.io/",
+        "description": "A website listing and providing information about overseas schools approved for VA education benefits.",
+        "technologies": ["HTML5", "CSS3", "JavaScript", "SQL", "API Integration", "C/C++", "Dart"],
+        "tags": ["UI/UX", "design", "css3", "html5", "javascript", "frontend", "web", "SQL", "Database", "API", "c", "Dart"]
+      },
+      {
+        "name": "Cryptogram",
+        "url": "https://alexmcvay.github.io/spelling/",
+        "description": "An endless game of Cryptogram featuring favorite quotes with encryption and decryption puzzles.",
+        "technologies": ["HTML5", "CSS3", "JavaScript", "Game Development", "Encryption Algorithms"],
+        "tags": ["UI/UX", "design", "css3", "html5", "javascript", "frontend", "web", "SQL", "Database", "API", "c", "Dart"]
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Level 2: PowerPoint Yellow Belt",
+        "issuer": "Microsoft",
+        "date": "2022",
+        "description": "Advanced PowerPoint skills certification"
+      },
+      {
+        "name": "Connect and Protect: Networks and Network Security",
+        "issuer": "CompTIA",
+        "date": "2021",
+        "description": "Network security fundamentals certification"
+      },
+      {
+        "name": "Egress Journeyman",
+        "issuer": "United States Air Force",
+        "date": "2019",
+        "description": "Advanced certification in aircraft egress systems maintenance and repair"
+      },
+      {
+        "name": "Aircrew Egress Systems Maintenance",
+        "issuer": "United States Air Force",
+        "date": "2018",
+        "description": "Specialized training in maintaining and servicing aircraft egress systems"
+      },
+      {
+        "name": "Aircraft Familiarization and Flightline Operations",
+        "issuer": "United States Air Force",
+        "date": "2017",
+        "description": "Training in aircraft operations and flightline safety procedures"
+      }
+    ],
+    "awards": [
+      {
+        "name": "Letter of Recognition",
+        "issuer": "United States Air Force",
+        "date": "2019",
+        "description": "Recognition for exceptional performance in inventory management system development"
+      },
+      {
+        "name": "Team of the Quarter",
+        "issuer": "United States Air Force",
+        "date": "2018",
+        "description": "Award for outstanding team performance in aircraft maintenance operations"
+      }
+    ],
+    "languages": [
+      {
+        "language": "English",
+        "proficiency": "Native"
+      }
+    ]
+  }
