@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const jobDescTextarea = document.getElementById('job-desc');
     const copyButton = document.getElementById('copy-btn');
     const downloadButton = document.getElementById('download-btn');
+    const downloadPdfButton = document.getElementById('download-pdf-btn');
 
     let masterResumeData = null;
 
@@ -455,4 +456,27 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.removeChild(a);
         });
     }
+
+    // Add event listener for the "Download as PDF" button
+    downloadPdfButton.addEventListener('click', () => {
+        if (!resultOutput.innerHTML.trim()) {
+            alert('No resume content to download. Please customize your resume first.');
+            return;
+        }
+
+        // Generate PDF
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+
+        // Add content to the PDF
+        pdf.html(resultOutput, {
+            callback: function (doc) {
+                // Save the PDF
+                doc.save('customized-resume.pdf');
+            },
+            x: 10,
+            y: 10,
+            width: 190 // Adjust width to fit content
+        });
+    });
 });
