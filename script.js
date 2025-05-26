@@ -242,20 +242,38 @@ document.addEventListener('DOMContentLoaded', () => {
         // Filter skills to include only selected ones
         customResume.skills = customResume.skills.filter(skill => selectedSkills.includes(skill));
 
-        // Filter experience
+        // Filter experience: only jobs within the last 10 years
         if (customResume.experience) {
-            customResume.experience = customResume.experience.map(job => {
-                const filteredJob = { ...job };
+            const now = new Date();
+            const tenYearsAgo = new Date(now.getFullYear() - 10, now.getMonth(), now.getDate());
 
-                if (filteredJob.accomplishments) {
-                    filteredJob.accomplishments = filteredJob.accomplishments.filter(acc => {
-                        if (!acc.tags) return true;
-                        return acc.tags.some(tag => selectedSkills.includes(tag));
-                    });
-                }
+            customResume.experience = customResume.experience
+                .map(job => {
+                    const filteredJob = { ...job };
 
-                return filteredJob;
-            }).filter(job => job.accomplishments && job.accomplishments.length > 0);
+                    if (filteredJob.accomplishments) {
+                        filteredJob.accomplishments = filteredJob.accomplishments.filter(acc => {
+                            if (!acc.tags) return true;
+                            return acc.tags.some(tag => selectedSkills.includes(tag));
+                        });
+                    }
+
+                    return filteredJob;
+                })
+                .filter(job => {
+                    let endDateStr = job.endDate || '';
+                    let endYear;
+
+                    if (/present/i.test(endDateStr.trim())) {
+                        endYear = now.getFullYear();
+                    } else {
+                        const yearMatch = endDateStr.match(/(\d{4})/);
+                        endYear = yearMatch ? parseInt(yearMatch[1], 10) : now.getFullYear();
+                    }
+
+                    // Only filter by date, not accomplishments
+                    return endYear >= (now.getFullYear() - 10);
+                });
         }
 
         // Filter projects to match selected skills
