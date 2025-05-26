@@ -276,44 +276,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         }
 
-        // Filter certifications to match selected skills (more inclusive)
-        if (customResume.certifications) {
-            customResume.certifications = customResume.certifications.filter(cert => {
-                if (!cert.tags || cert.tags.length === 0) return true; // Include certs without tags
-                // Check if any tag matches the selected skills (case-insensitive)
-                return cert.tags.some(tag => 
-                    selectedSkills.some(skill => 
-                        skill.toLowerCase().includes(tag.toLowerCase()) || 
-                        tag.toLowerCase().includes(skill.toLowerCase())
-                    )
-                );
-            });
-        }
-
-        // Filter projects to match selected skills (more inclusive)
+        // Filter projects to match selected skills
         if (customResume.projects) {
             customResume.projects = customResume.projects.filter(project => {
-                if (!project.technologies && !project.tags) return true; // Include projects without tags/tech
+                if (!project.technologies && !project.tags) return true;
 
                 const techMatch = project.technologies
-                    ? project.technologies.some(tech => 
-                        selectedSkills.some(skill => 
-                            skill.toLowerCase().includes(tech.toLowerCase()) || 
-                            tech.toLowerCase().includes(skill.toLowerCase())
-                        )
-                    )
+                    ? project.technologies.some(tech => selectedSkills.includes(tech))
                     : false;
 
                 const tagMatch = project.tags
-                    ? project.tags.some(tag => 
-                        selectedSkills.some(skill => 
-                            skill.toLowerCase().includes(tag.toLowerCase()) || 
-                            tag.toLowerCase().includes(skill.toLowerCase())
-                        )
-                    )
+                    ? project.tags.some(tag => selectedSkills.includes(tag))
                     : false;
 
                 return techMatch || tagMatch;
+            });
+        }
+
+        // Filter certifications to match selected skills
+        if (customResume.certifications) {
+            customResume.certifications = customResume.certifications.filter(cert => {
+                if (!cert.tags) return true;
+                // Check if any tag matches the selected skills
+                return cert.tags.some(tag => selectedSkills.includes(tag));
             });
         }
 
@@ -403,7 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 html += `
                     <li>
                         <strong>${cert.name}</strong> - ${cert.issuer} (${cert.date})
-                        ${cert.credentialId ? `<br><small>Credential ID: ${cert.credentialId}</small>` : ''}
                         ${cert.description ? `<p>${highlightKeywords(cert.description, selectedSkills)}</p>` : ''}
                     </li>
                 `;
@@ -415,58 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        // Projects section
-        if (resumeData.projects && resumeData.projects.length > 0) {
-            html += `
-                <section class="resume-projects">
-                    <h2>Projects</h2>
-            `;
-
-            resumeData.projects.forEach(project => {
-                html += `
-                    <div class="project">
-                        <h3>${project.name || 'Project Name'}</h3>
-                        ${project.description ? `<p>${highlightKeywords(project.description, selectedSkills)}</p>` : ''}
-                        ${project.technologies && project.technologies.length > 0 ? `
-                            <p><strong>Technologies:</strong> ${project.technologies.join(', ')}</p>
-                        ` : ''}
-                        ${project.url ? `<p><a href="${project.url}" target="_blank">View Project</a></p>` : ''}
-                    </div>
-                `;
-            });
-
-            html += `
-                </section>
-            `;
-        }
-
-        // Education section (if you want to add it)
-        if (resumeData.education && resumeData.education.length > 0) {
-            html += `
-                <section class="resume-education">
-                    <h2>Education</h2>
-            `;
-
-            resumeData.education.forEach(edu => {
-                html += `
-                    <div class="education-item">
-                        <h3>${edu.degree || 'Degree'}</h3>
-                        <p class="institution">${edu.institution || 'Institution'} (${edu.date || 'Date'})</p>
-                        ${edu.gpa ? `<p>GPA: ${edu.gpa}</p>` : ''}
-                        ${edu.description ? `<p>${edu.description}</p>` : ''}
-                    </div>
-                `;
-            });
-
-            html += `
-                </section>
-            `;
-        }
-
-        html += `
-            </div>
-        `;
-
+        html += `</div>`;
         return html;
     }
 
@@ -548,309 +481,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        try {
-            // Show loading indicator
-            downloadPdfButton.textContent = 'Generating PDF...';
-            downloadPdfButton.disabled = true;
+        // Generate PDF
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
 
-            // Create a new jsPDF instance
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-
-            // Page settings
-            const pageWidth = 210;
-            const pageHeight = 297;
-            const margin = 20;
-            const contentWidth = pageWidth - (margin * 2);
-            let yPosition = margin;
-
-            // Font settings
-            const fonts = {
-                name: { size: 20, style: 'bold' },
-                sectionHeader: { size: 14, style: 'bold' },
-                subHeader: { size: 12, style: 'bold' },
-                normal: { size: 10, style: 'normal' },
-                small: { size: 9, style: 'normal' },
-                contact: { size: 9, style: 'normal' }
-            };
-
-            // Colors
-            const colors = {
-                primary: [30, 136, 229], // Blue
-                secondary: [100, 100, 100], // Gray
-                text: [0, 0, 0] // Black
-            };
-
-            // Helper function to add a new page if needed
-            function checkPageBreak(requiredSpace = 10) {
-                if (yPosition + requiredSpace > pageHeight - margin) {
-                    pdf.addPage();
-                    yPosition = margin;
-                    return true;
-                }
-                return false;
-            }
-
-            // Helper function to set font
-            function setFont(fontType) {
-                pdf.setFontSize(fonts[fontType].size);
-                pdf.setFont('helvetica', fonts[fontType].style);
-            }
-
-            // Helper function to wrap text
-            function addWrappedText(text, x, maxWidth, lineHeight = 5) {
-                const lines = pdf.splitTextToSize(text, maxWidth);
-                lines.forEach(line => {
-                    checkPageBreak();
-                    pdf.text(line, x, yPosition);
-                    yPosition += lineHeight;
-                });
-            }
-
-            // Get resume content and parse it
-            const resumeElement = resultOutput.cloneNode(true);
-            
-            // Remove highlight spans but keep the text
-            const highlights = resumeElement.querySelectorAll('.highlight');
-            highlights.forEach(highlight => {
-                highlight.outerHTML = highlight.innerHTML;
-            });
-
-            // Extract structured data from the resume
-            const nameElement = resumeElement.querySelector('.resume-header h1');
-            const contactElements = resumeElement.querySelectorAll('.contact-info p');
-            const sections = resumeElement.querySelectorAll('.resume section');
-
-            // Header with name and contact info
-            if (nameElement) {
-                setFont('name');
-                pdf.setTextColor(...colors.primary);
-                const nameText = nameElement.textContent.trim();
-                const nameWidth = pdf.getTextWidth(nameText);
-                pdf.text(nameText, (pageWidth - nameWidth) / 2, yPosition);
-                yPosition += 8;
-
-                // Add a line under the name
-                pdf.setDrawColor(...colors.primary);
-                pdf.setLineWidth(0.5);
-                pdf.line(margin, yPosition, pageWidth - margin, yPosition);
-                yPosition += 5;
-            }
-
-            // Contact information
-            if (contactElements.length > 0) {
-                setFont('contact');
-                pdf.setTextColor(...colors.secondary);
-                
-                contactElements.forEach(contactEl => {
-                    const contactText = contactEl.textContent.trim();
-                    if (contactText) {
-                        const textWidth = pdf.getTextWidth(contactText);
-                        pdf.text(contactText, (pageWidth - textWidth) / 2, yPosition);
-                        yPosition += 4;
-                    }
-                });
-                yPosition += 5;
-            }
-
-            // Process each section
-            sections.forEach(section => {
-                checkPageBreak(15);
-
-                // Section header
-                const sectionHeader = section.querySelector('h2');
-                if (sectionHeader) {
-                    setFont('sectionHeader');
-                    pdf.setTextColor(...colors.primary);
-                    pdf.text(sectionHeader.textContent.trim(), margin, yPosition);
-                    yPosition += 8;
-
-                    // Add underline for section
-                    pdf.setDrawColor(...colors.primary);
-                    pdf.setLineWidth(0.3);
-                    pdf.line(margin, yPosition - 2, margin + 40, yPosition - 2);
-                    yPosition += 3;
-                }
-
-                // Handle different section types
-                const sectionClass = section.className;
-
-                if (sectionClass.includes('resume-skills')) {
-                    // Skills section - display as flowing text
-                    const skillsList = section.querySelector('.skills-list');
-                    if (skillsList) {
-                        const skills = Array.from(skillsList.querySelectorAll('li')).map(li => li.textContent.trim());
-                        const skillsText = skills.join(' • ');
-                        
-                        setFont('normal');
-                        pdf.setTextColor(...colors.text);
-                        addWrappedText(skillsText, margin, contentWidth, 5);
-                        yPosition += 3;
-                    }
-
-                } else if (sectionClass.includes('resume-experience')) {
-                    // Experience section
-                    const jobs = section.querySelectorAll('.job');
-                    jobs.forEach(job => {
-                        checkPageBreak(20);
-
-                        // Job title
-                        const jobTitle = job.querySelector('h3');
-                        if (jobTitle) {
-                            setFont('subHeader');
-                            pdf.setTextColor(...colors.text);
-                            pdf.text(jobTitle.textContent.trim(), margin, yPosition);
-                            yPosition += 6;
-                        }
-
-                        // Company and location
-                        const companyInfo = job.querySelector('.company');
-                        const locationInfo = job.querySelector('.job-header p:not(.date)');
-                        if (companyInfo && locationInfo) {
-                            setFont('normal');
-                            pdf.setTextColor(...colors.secondary);
-                            pdf.text(locationInfo.textContent.trim(), margin, yPosition);
-                            yPosition += 5;
-                        }
-
-                        // Date
-                        const dateInfo = job.querySelector('.date');
-                        if (dateInfo) {
-                            setFont('small');
-                            pdf.setTextColor(...colors.secondary);
-                            pdf.text(dateInfo.textContent.trim(), margin, yPosition);
-                            yPosition += 5;
-                        }
-
-                        // Accomplishments
-                        const accomplishments = job.querySelectorAll('ul li');
-                        if (accomplishments.length > 0) {
-                            setFont('normal');
-                            pdf.setTextColor(...colors.text);
-                            
-                            accomplishments.forEach(acc => {
-                                checkPageBreak(8);
-                                
-                                // Add bullet point
-                                pdf.text('•', margin + 2, yPosition);
-                                
-                                // Add accomplishment text with proper wrapping
-                                const accText = acc.textContent.trim();
-                                const wrappedLines = pdf.splitTextToSize(accText, contentWidth - 8);
-                                
-                                wrappedLines.forEach((line, index) => {
-                                    if (index > 0) checkPageBreak();
-                                    pdf.text(line, margin + 8, yPosition);
-                                    if (index < wrappedLines.length - 1) yPosition += 5;
-                                });
-                                yPosition += 6;
-                            });
-                        }
-
-                        // Technologies
-                        const techElement = job.querySelector('p:has(strong)');
-                        if (techElement && techElement.textContent.includes('Technologies:')) {
-                            setFont('small');
-                            pdf.setTextColor(...colors.secondary);
-                            addWrappedText(techElement.textContent.trim(), margin + 8, contentWidth - 8, 4);
-                        }
-
-                        yPosition += 5; // Space between jobs
-                    });
-
-                } else if (sectionClass.includes('resume-certifications')) {
-                    // Certifications section
-                    const certs = section.querySelectorAll('li');
-                    certs.forEach(cert => {
-                        checkPageBreak(12);
-
-                        setFont('normal');
-                        pdf.setTextColor(...colors.text);
-
-                        // Add bullet point
-                        pdf.text('•', margin + 2, yPosition);
-
-                        // Get certification text
-                        const certText = cert.textContent.trim();
-                        const wrappedLines = pdf.splitTextToSize(certText, contentWidth - 8);
-                        
-                        wrappedLines.forEach((line, index) => {
-                            if (index > 0) checkPageBreak();
-                            pdf.text(line, margin + 8, yPosition);
-                            if (index < wrappedLines.length - 1) yPosition += 5;
-                        });
-                        yPosition += 7;
-                    });
-
-                } else if (sectionClass.includes('resume-projects')) {
-                    // Projects section
-                    const projects = section.querySelectorAll('.project');
-                    projects.forEach(project => {
-                        checkPageBreak(15);
-
-                        // Project name
-                        const projectName = project.querySelector('h3');
-                        if (projectName) {
-                            setFont('subHeader');
-                            pdf.setTextColor(...colors.text);
-                            pdf.text(projectName.textContent.trim(), margin, yPosition);
-                            yPosition += 6;
-                        }
-
-                        // Project description
-                        const projectDesc = project.querySelector('p:not(:has(strong)):not(:has(a))');
-                        if (projectDesc) {
-                            setFont('normal');
-                            pdf.setTextColor(...colors.text);
-                            addWrappedText(projectDesc.textContent.trim(), margin + 4, contentWidth - 4, 5);
-                        }
-
-                        // Technologies
-                        const techElement = project.querySelector('p:has(strong)');
-                        if (techElement) {
-                            setFont('small');
-                            pdf.setTextColor(...colors.secondary);
-                            addWrappedText(techElement.textContent.trim(), margin + 4, contentWidth - 4, 4);
-                        }
-
-                        // Project URL
-                        const urlElement = project.querySelector('p:has(a)');
-                        if (urlElement) {
-                            const url = project.querySelector('a')?.href;
-                            if (url) {
-                                setFont('small');
-                                pdf.setTextColor(...colors.primary);
-                                pdf.text(`URL: ${url}`, margin + 4, yPosition);
-                                yPosition += 5;
-                            }
-                        }
-
-                        yPosition += 3; // Space between projects
-                    });
-                }
-
-                yPosition += 5; // Space between sections
-            });
-
-            // Add footer with page numbers
-            const pageCount = pdf.internal.getNumberOfPages();
-            for (let i = 1; i <= pageCount; i++) {
-                pdf.setPage(i);
-                setFont('small');
-                pdf.setTextColor(...colors.secondary);
-                pdf.text(`Page ${i} of ${pageCount}`, pageWidth - margin - 20, pageHeight - margin + 5);
-            }
-
-            // Save the PDF
-            pdf.save('alexandra-mcvay-resume.pdf');
-
-        } catch (error) {
-            console.error('Error generating PDF:', error);
-            alert('Failed to generate PDF. Please try downloading as HTML instead.');
-        } finally {
-            // Reset button
-            downloadPdfButton.textContent = 'Download as PDF';
-            downloadPdfButton.disabled = false;
-        }
+        // Add content to the PDF
+        pdf.html(resultOutput, {
+            callback: function (doc) {
+                // Save the PDF
+                doc.save('customized-resume.pdf');
+            },
+            x: 10,
+            y: 10,
+            width: 190 // Adjust width to fit content
+        });
     });
 });
