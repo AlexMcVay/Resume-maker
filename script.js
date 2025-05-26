@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .filter(job => {
                     let endDateStr = job.endDate || '';
-                    let endYear;
+                    let endYear; 
 
                     if (/present/i.test(endDateStr.trim())) {
                         endYear = now.getFullYear();
