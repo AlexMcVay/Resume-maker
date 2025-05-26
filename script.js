@@ -548,19 +548,108 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Generate PDF
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF();
+        try {
+            // Show loading indicator
+            downloadPdfButton.textContent = 'Generating PDF...';
+            downloadPdfButton.disabled = true;
 
-        // Add content to the PDF
-        pdf.html(resultOutput, {
-            callback: function (doc) {
-                // Save the PDF
-                doc.save('customized-resume.pdf');
-            },
-            x: 10,
-            y: 10,
-            width: 190 // Adjust width to fit content
-        });
+            // Create a new jsPDF instance
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            // Get the resume content as plain text
+            const resumeElement = resultOutput.cloneNode(true);
+            
+            // Remove highlight spans but keep the text
+            const highlights = resumeElement.querySelectorAll('.highlight');
+            highlights.forEach(highlight => {
+                highlight.outerHTML = highlight.innerHTML;
+            });
+
+            // Convert HTML to text with basic formatting
+            const textContent = resumeElement.innerText || resumeElement.textContent;
+            const lines = textContent.split('\n').filter(line => line.trim() !== '');
+            
+            let yPosition = 20;
+            const pageHeight = 280;
+            const lineHeight = 6;
+            const margin = 20;
+            const pageWidth = 170;
+
+            lines.forEach((line, index) => {
+                // Check if we need a new page
+                if (yPosition > pageHeight - 20) {
+                    pdf.addPage();
+                    yPosition = 20;
+                }
+
+                // Format different types of content
+                if (line.includes('Alexandra McVay') || line.includes('ALEXANDRA MCVAY')) {
+                    // Name - larger font
+                    pdf.setFontSize(18);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text(line, margin, yPosition);
+                    yPosition += lineHeight + 2;
+                } else if (line.includes('@') || line.includes('(') || line.includes('linkedin') || line.includes('github')) {
+                    // Contact info - smaller font
+                    pdf.setFontSize(10);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.text(line, margin, yPosition);
+                    yPosition += lineHeight;
+                } else if (line.match(/^(Skills|Experience|Certifications|Projects|Education)$/)) {
+                    // Section headers
+                    yPosition += 3; // Add some space before section
+                    pdf.setFontSize(14);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text(line, margin, yPosition);
+                    yPosition += lineHeight + 2;
+                } else if (line.trim().length > 0) {
+                    // Regular content
+                    pdf.setFontSize(10);
+                    pdf.setFont('helvetica', 'normal');
+                    
+                    // Handle long lines by splitting them
+                    const words = line.split(' ');
+                    let currentLine = '';
+                    
+                    words.forEach(word => {
+                        const testLine = currentLine + (currentLine ? ' ' : '') + word;
+                        const textWidth = pdf.getTextWidth(testLine);
+                        
+                        if (textWidth > pageWidth && currentLine) {
+                            // Print current line and start new one
+                            pdf.text(currentLine, margin, yPosition);
+                            yPosition += lineHeight;
+                            currentLine = word;
+                            
+                            // Check for page break
+                            if (yPosition > pageHeight - 20) {
+                                pdf.addPage();
+                                yPosition = 20;
+                            }
+                        } else {
+                            currentLine = testLine;
+                        }
+                    });
+                    
+                    // Print remaining text
+                    if (currentLine) {
+                        pdf.text(currentLine, margin, yPosition);
+                        yPosition += lineHeight;
+                    }
+                }
+            });
+
+            // Save the PDF
+            pdf.save('customized-resume.pdf');
+
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            alert('Failed to generate PDF. Please try downloading as HTML instead.');
+        } finally {
+            // Reset button
+            downloadPdfButton.textContent = 'Download as PDF';
+            downloadPdfButton.disabled = false;
+        }
     });
 });
