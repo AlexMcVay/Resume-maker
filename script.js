@@ -276,30 +276,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         }
 
-        // Filter projects to match selected skills
-        if (customResume.projects) {
-            customResume.projects = customResume.projects.filter(project => {
-                if (!project.technologies && !project.tags) return true;
-
-                const techMatch = project.technologies
-                    ? project.technologies.some(tech => selectedSkills.includes(tech))
-                    : false;
-
-                const tagMatch = project.tags
-                    ? project.tags.some(tag => selectedSkills.includes(tag))
-                    : false;
-
-                return techMatch || tagMatch;
+        // Filter certifications to match selected skills (more inclusive)
+        if (customResume.certifications) {
+            customResume.certifications = customResume.certifications.filter(cert => {
+                if (!cert.tags || cert.tags.length === 0) return true; // Include certs without tags
+                // Check if any tag matches the selected skills (case-insensitive)
+                return cert.tags.some(tag => 
+                    selectedSkills.some(skill => 
+                        skill.toLowerCase().includes(tag.toLowerCase()) || 
+                        tag.toLowerCase().includes(skill.toLowerCase())
+                    )
+                );
             });
         }
 
-        // Filter certifications to match selected skills
-        if (customResume.certifications) {
-            customResume.certifications = customResume.certifications.filter(cert => {
-                if (!cert.tags) return true;
+        // Filter projects to match selected skills (more inclusive)
+        if (customResume.projects) {
+            customResume.projects = customResume.projects.filter(project => {
+                if (!project.technologies && !project.tags) return true; // Include projects without tags/tech
 
-                // Check if any tag matches the selected skills
-                return cert.tags.some(tag => selectedSkills.includes(tag));
+                const techMatch = project.technologies
+                    ? project.technologies.some(tech => 
+                        selectedSkills.some(skill => 
+                            skill.toLowerCase().includes(tech.toLowerCase()) || 
+                            tech.toLowerCase().includes(skill.toLowerCase())
+                        )
+                    )
+                    : false;
+
+                const tagMatch = project.tags
+                    ? project.tags.some(tag => 
+                        selectedSkills.some(skill => 
+                            skill.toLowerCase().includes(tag.toLowerCase()) || 
+                            tag.toLowerCase().includes(skill.toLowerCase())
+                        )
+                    )
+                    : false;
+
+                return techMatch || tagMatch;
             });
         }
 
@@ -389,6 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 html += `
                     <li>
                         <strong>${cert.name}</strong> - ${cert.issuer} (${cert.date})
+                        ${cert.credentialId ? `<br><small>Credential ID: ${cert.credentialId}</small>` : ''}
                         ${cert.description ? `<p>${highlightKeywords(cert.description, selectedSkills)}</p>` : ''}
                     </li>
                 `;
@@ -400,7 +415,58 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        html += `</div>`;
+        // Projects section
+        if (resumeData.projects && resumeData.projects.length > 0) {
+            html += `
+                <section class="resume-projects">
+                    <h2>Projects</h2>
+            `;
+
+            resumeData.projects.forEach(project => {
+                html += `
+                    <div class="project">
+                        <h3>${project.name || 'Project Name'}</h3>
+                        ${project.description ? `<p>${highlightKeywords(project.description, selectedSkills)}</p>` : ''}
+                        ${project.technologies && project.technologies.length > 0 ? `
+                            <p><strong>Technologies:</strong> ${project.technologies.join(', ')}</p>
+                        ` : ''}
+                        ${project.url ? `<p><a href="${project.url}" target="_blank">View Project</a></p>` : ''}
+                    </div>
+                `;
+            });
+
+            html += `
+                </section>
+            `;
+        }
+
+        // Education section (if you want to add it)
+        if (resumeData.education && resumeData.education.length > 0) {
+            html += `
+                <section class="resume-education">
+                    <h2>Education</h2>
+            `;
+
+            resumeData.education.forEach(edu => {
+                html += `
+                    <div class="education-item">
+                        <h3>${edu.degree || 'Degree'}</h3>
+                        <p class="institution">${edu.institution || 'Institution'} (${edu.date || 'Date'})</p>
+                        ${edu.gpa ? `<p>GPA: ${edu.gpa}</p>` : ''}
+                        ${edu.description ? `<p>${edu.description}</p>` : ''}
+                    </div>
+                `;
+            });
+
+            html += `
+                </section>
+            `;
+        }
+
+        html += `
+            </div>
+        `;
+
         return html;
     }
 
